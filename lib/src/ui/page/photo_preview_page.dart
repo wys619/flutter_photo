@@ -100,44 +100,41 @@ class _PhotoPreviewPageState extends State<PhotoPreviewPage> {
       color: options.textColor,
       fontSize: 14.0,
     );
-    return Theme(
-      data: Theme.of(context).copyWith(primaryColor: options.themeColor),
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: config.options.themeColor,
-          title: StreamBuilder(
-            stream: pageStream,
-            initialData: widget.initIndex,
-            builder: (ctx, snap) => Text(
-                  "${snap.data + 1}/${widget.list.length}",
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: config.options.themeColor,
+        title: StreamBuilder(
+          stream: pageStream,
+          initialData: widget.initIndex,
+          builder: (ctx, snap) => Text(
+            "${snap.data + 1}/${widget.list.length}",
           ),
-          actions: <Widget>[
-            StreamBuilder(
-              stream: pageStream,
-              builder: (ctx, s) => FlatButton(
-                    splashColor: Colors.transparent,
-                    onPressed: selectedList.length == 0 ? null : sure,
-                    child: Text(
-                      config.provider.getSureText(options, selectedList.length),
-                      style: selectedList.length == 0
-                          ? textStyle.copyWith(color: options.disableColor)
-                          : textStyle,
-                    ),
-                  ),
+        ),
+        actions: <Widget>[
+          StreamBuilder(
+            stream: pageStream,
+            builder: (ctx, s) => FlatButton(
+              splashColor: Colors.transparent,
+              onPressed: selectedList.length == 0 ? null : sure,
+              child: Text(
+                config.provider.getSureText(options, selectedList.length),
+                style: selectedList.length == 0
+                        ? textStyle.copyWith(color: options.disableColor)
+                        : textStyle,
+              ),
             ),
-          ],
-        ),
-        body: PageView.builder(
-          controller: pageController,
-          itemBuilder: _buildItem,
-          itemCount: list.length,
-          onPageChanged: _onPageChanged,
-        ),
-        bottomSheet: _buildThumb(),
-        bottomNavigationBar: _buildBottom(),
+          ),
+        ],
       ),
+      body: PageView.builder(
+        controller: pageController,
+        itemBuilder: _buildItem,
+        itemCount: list.length,
+        onPageChanged: _onPageChanged,
+      ),
+      bottomSheet: _buildThumb(),
+      bottomNavigationBar: _buildBottom(),
     );
   }
 
