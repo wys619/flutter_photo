@@ -104,6 +104,7 @@ class _PhotoPreviewPageState extends State<PhotoPreviewPage> {
       data: Theme.of(context).copyWith(primaryColor: options.themeColor),
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: config.options.themeColor,
           title: StreamBuilder(
             stream: pageStream,
